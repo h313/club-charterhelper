@@ -1,0 +1,23 @@
+{
+  "name": "club-charterhelper",
+  "version": "0.0.1",
+  "description": "put clubs to work!",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node --use_strict server.js"
+  },
+  "author": "Haoda Wang",
+  "license": "GNU",
+  "dependencies": {
+    "async-waterfall": "^0.1.5",
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "express-session": "^1.14.0",
+    "mongoose": "^4.5.7",
+    "passport": "^0.3.2",
+    "passport-google-oauth": "^1.0.0",
+    "serve-static": "^1.11.1"
+  }
+}

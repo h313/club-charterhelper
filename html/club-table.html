@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="clubApp">
+<head>
+  <meta charset="UTF-8">
+  <title>CSW Clubs</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-cookies.min.js"></script>
+  <script src="../js/angular-clipboard.js"></script>
+  <script src="../js/clubApp.js"></script>
+</head>
+<body>
+<ul id="dropdown1" class="dropdown-content">
+  <li><a href="/account">Account</a></li>
+  <li><a href="/logout">Logout</a></li>
+</ul>
+<header>
+  <div class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper blue darken-4">
+        <div class="container">
+          <a href="#" class="brand-logo">CSW Clubs</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/clubs/cards"><i class="material-icons">view_module</i></a></a></li>
+            <li><a href="/clubs/list"><i class="material-icons">view_list</i></a></a></li>
+            <li><a class="dropdown-button" href="#!" data-activates="dropdown1"><i class="material-icons">more_vert</i></a></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="container" ng-controller="ClubController">
+    <br><br>
+    <div class="row center" ng-show="state==0">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" ng-show="state==1">
+      <div class="col s12">
+        <div class="search-wrapper card">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">search</i>
+            <input ng-model="query[queryBy]" id="search" type="text">
+            <label for="search">Search</label>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m6 l6" ng-repeat="group in clubs | filter:query">
+        <div class="card sticky-action">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" ng-src="{{group.pics[0]}}">
+          </div>
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4">{{group.name}}<i class="material-icons right">more_vert</i></span>
+            <p>{{group.short}}</p>
+          </div>
+          <div class="card-action">
+            <a ng-click="getClub(group.id)"><i class="material-icons">open_in_new</i></a>
+            <a ng-click="subscribe(group.id)" ng-if="!group.inClub"><i class="material-icons">add_circle_outline</i></a>
+            <a ng-click="unsubscribe(group.id)" ng-if="group.inClub"><i class="material-icons">remove_circle_outline</i></a>
+            <span class="new badge blue" data-badge-caption="members">{{group.members}}</span>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">{{group.name}}<i class="material-icons right">close</i></span>
+            <p>{{group.long}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ng-show="state==2">
+      <div class="row">
+        <div class="slider">
+          <ul class="slides">
+            <li ng-repeat="picture in club.pics">
+              <img ng-src="{{picture[0]}}"> <!-- random image -->
+              <div class="caption center-align">
+                <h3>{{club.name}}</h3>
+                <h5 class="light grey-text text-lighten-3">{{club.short}}</h5>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <p class="light">{{club.long}}</p>
+      </div>
+      <div class="fixed-action-btn" style="bottom: 45px; left: 24px;">
+        <a class="btn-floating btn-large blue" ng-click="state=1">
+          <i class="large material-icons">arrow_back</i>
+        </a>
+      </div>
+      <div ng-show="!club.inClub" class="fixed-action-btn" style="top: 45px; right: 24px;">
+        <a class="btn-floating btn-large blue" ng-click="Asubscribe(club.id)">
+          <i class="large material-icons">add_circle_outline</i>
+        </a>
+      </div>
+      <div ng-show="club.inClub" class="fixed-action-btn" style="top: 45px; right: 24px;">
+        <a class="btn-floating btn-large blue" ng-click="Aunsubscribe(club.id)">
+          <i class="large material-icons">remove_circle_outline</i>
+        </a>
+      </div>
+      <div ng-show="club.inClub" class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-large blue" onclick="$('#modal1').openModal()">
+          <i class="large material-icons">people</i>
+        </a>
+      </div>
+      <div id="modal1" class="modal bottom-sheet">
+        <div class="modal-content">
+          <div class="row">
+            <h4 class="center-align">Members</h4>
+            <table>
+              <thead>
+              <tr>
+                <th data-field="name">Name</th>
+                <th data-field="email">Email</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="user in club.members">
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button clipboard supported="supported" class="btn waves-effect waves-blue btn-flat" text="emails">Copy Emails</button>
+          <a href="#!" class="modal-action modal-close waves-effect waves-blue btn-flat">Close</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>
