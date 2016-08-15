@@ -72,7 +72,6 @@ app.controller('ClubController', ['$scope','$http', 'clipboard', function ClubCo
       data.members.forEach(function(member){
         $scope.emails += member.email + ',';
       });
-      $('.carousel.carousel-slider').carousel({full_width: true});
       $scope.state = 2;
     });
   };

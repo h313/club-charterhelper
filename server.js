@@ -50,8 +50,8 @@ passport.deserializeUser(function(id, done) {
 });
 
 passport.use(new GoogleStrategy({
-    clientID: 'GET_YOUR_OWN_KEY',
-    clientSecret: 'THIS_IS_MY_KEY',
+    clientID: '',
+    clientSecret: '',
     callbackURL: "http://club-charterhelper.rhcloud.com/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
@@ -91,9 +91,6 @@ app.get('/', loggedIn, function(req, res, next) {
 
 app.get('/clubs/cards', loggedIn, function(req, res, next) {
   res.sendFile(path.join(__dirname, '/html', 'club-cards.html'));
-});
-app.get('/clubs/list', loggedIn, function(req, res, next) {
-  res.sendFile(path.join(__dirname, '/html', 'club-table.html'));
 });
 app.get('/clubs/new', loggedIn, function(req, res, next){
   res.sendFile(path.join(__dirname, '/html', 'new.html'));
@@ -208,6 +205,14 @@ app.post('/newClub', loggedIn, function(req, res, next){
       res.send(JSON.stringify({ status: 0 }));
     });
   });
+});
+
+app.get('/failure', function(req, res){
+  res.sendFile(path.join(__dirname, '/html', 'fail.html'));
+});
+
+app.get('/secret', function(req,res){
+  res.sendFile(path.join(__dirname, '/html', 'secret.html'));
 });
 
 app.get('/js/*', function(req,res) {
