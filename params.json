@@ -1,0 +1,6 @@
+{
+  "name": "Club-charterhelper",
+  "tagline": "A rather awkward name for a club manager",
+  "body": "###About\r\n\r\nThis was a thing I made some time ago to help with clubs at my school. It allows for people to easily sign up for or drop out of clubs and allows all users to make a club. All those subscribed to the club will have access to a list of all members in the club. To log in, you will need a Google account with the correct email domain (in this case, `charterschool.org`).\r\n\r\n###Usage\r\n\r\nUsing this is easy, check out the GitHub repository for the source code (minus my API key) and usage instructions.",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
