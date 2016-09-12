@@ -50,8 +50,8 @@ passport.deserializeUser(function(id, done) {
 });
 
 passport.use(new GoogleStrategy({
-    clientID: '',
-    clientSecret: '',
+    clientID: 'get ur own key',
+    clientSecret: 'this key is mine',
     callbackURL: "http://club-charterhelper.rhcloud.com/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
