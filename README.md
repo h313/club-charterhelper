@@ -6,4 +6,4 @@ This was made to be used with OpenShift with the following cartridges:
 * [MongoDB](https://github.com/icflorescu/openshift-cartridge-mongodb)
 * [NodeJS](https://github.com/icflorescu/openshift-cartridge-nodejs)
 
-Clone the repository and put the files from here into the repo. Commit and push to deploy. Don't forget to get a Google API key for Google APIs.
+Clone the repository and put the files from here into the repo. Commit and push to deploy. Don't forget to get a Google API key for login using Google Apps. Put the key in the `clientID` and `clientSecret` variables in `server.js`.
